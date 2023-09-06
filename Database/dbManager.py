@@ -270,7 +270,20 @@ class UserDBManager:
             logging.error(f"Error while creating user table \n Error:{e}")
             return False
         return True
+    def update_v1(self):
+        cur = self.conn.cursor()
+        try:
+            cur.execute("ALTER TABLE settings"
+                        "ADD channel_id INTEGER default null")
+            cur.execute("ALTER TABLE settings"
+                        "ADD channel_username TEXT default null")
+            self.conn.commit()
+            logging.info("settings_v1 table alter successfully!")
 
+        except Error as e:
+            logging.error(f"Error while creating user table \n Error:{e}")
+            return False
+        return True
     def select_users(self):
         cur = self.conn.cursor()
         try:

@@ -102,6 +102,8 @@ MESSAGES = {
         'ERROR_INVALID_NUMBER': '❌لطفا مقداری عددی وارد کنید!',
         'CANCELED': '❌لغو شد',
         'SUBSCRIPTION_NOT_FOUND': '❌شما اشتراک فعالی ندارید!',
+        'CHANNEL_SUBSCRIPTION_NOT_FOUND': '❌شما هنوز عضو کانال نشده اید',
+
     }
 
 }

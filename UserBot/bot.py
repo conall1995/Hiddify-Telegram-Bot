@@ -381,7 +381,6 @@ def callback_query(call: CallbackQuery):
     # Delete Message
     elif key == "del_msg":
         bot.delete_message(call.message.chat.id, call.message.message_id)
-
     # Invalid Command
     else:
         bot.answer_callback_query(call.id, MESSAGES['ERROR_INVALID_COMMAND'])
@@ -390,6 +389,16 @@ def callback_query(call: CallbackQuery):
 # Bot Start Message Handler
 @bot.message_handler(commands=['start'])
 def start(message: Message):
+    owner_info = USERS_DB.select_owner_info()[0]
+    if not owner_info:
+        bot.send_message(message.chat.id, MESSAGES['UNKNOWN_ERROR'])
+        return
+    member = bot.get_chat_member(owner_info['channel_id'], message.chat.id)
+    if not member:
+        bot.send_message(message.chat.id, MESSAGES['CHANNEL_SUBSCRIPTION_NOT_FOUND'],
+                         reply_markup=channel_subscription_markup(owner_info['channel_username']))
+        return
+
     if USERS_DB.find_user(telegram_id=message.chat.id):
         bot.send_message(message.chat.id, MESSAGES['WELCOME'], reply_markup=main_menu_keyboard_markup())
         return
@@ -465,6 +474,13 @@ def send_ticket(message: Message):
 def link_subscription(message: Message):
     bot.send_message(message.chat.id, MESSAGES['ENTER_SUBSCRIPTION_INFO'], reply_markup=cancel_markup())
     bot.register_next_step_handler(message, next_step_link_subscription)
+
+
+#  Subscription Channel Confirm
+@bot.message_handler(func=lambda message: message.text == KEY_MARKUP['CONFIRM_CHANNEL'])
+def confirm_subscription_channel(message: Message):
+    start(message)
+
 
 
 # Start

@@ -82,3 +82,11 @@ def cancel_markup():
     markup = ReplyKeyboardMarkup(row_width=3, resize_keyboard=True)
     markup.add(KeyboardButton(KEY_MARKUP['CANCEL']))
     return markup
+
+
+def channel_subscription_markup(channel_name):
+    markup = InlineKeyboardMarkup()
+    markup.row_width = 1
+    markup.add(InlineKeyboardButton(KEY_MARKUP['SUBSCRIPTION_CHANNEL'], url=f"t.me/{channel_name}"))
+    markup.add(InlineKeyboardButton(KEY_MARKUP['CONFIRM_CHANNEL'], callback_data=f"cancel_subscription:{uuid}"))
+    return markup

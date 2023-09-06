@@ -45,7 +45,8 @@ KEY_MARKUP = {
         'SEND_TICKET': '📩پشتیبانی',
         'TO_QR': 'ً🖼کیوآر',
         'CONFIGS_LIST': '📝کانفیگ ها',
-
+        'CONFIRM_CHANNEL': '✅عضو شدم',
+        'SUBSCRIPTION_CHANNEL': 'عضویت در کانال',
 
     }
 }
