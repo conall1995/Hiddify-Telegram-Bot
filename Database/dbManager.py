@@ -189,6 +189,7 @@ class UserDBManager:
     def __init__(self, db_file):
         self.conn = self.create_connection(db_file)
         self.create_user_table()
+        self.update_v1()
         self.set_default_settings()
         self.set_default_owner_info()
 
@@ -270,6 +271,7 @@ class UserDBManager:
             logging.error(f"Error while creating user table \n Error:{e}")
             return False
         return True
+
     def update_v1(self):
         cur = self.conn.cursor()
         try:
@@ -284,6 +286,7 @@ class UserDBManager:
             logging.error(f"Error while creating user table \n Error:{e}")
             return False
         return True
+
     def select_users(self):
         cur = self.conn.cursor()
         try:
